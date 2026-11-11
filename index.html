@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Burak Seviner | Astroloji Kataloğu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050508;
+            --accent-teal: #2dd4bf; 
+            --accent-violet: #8b5cf6; 
+            --accent-indigo: #6366f1; 
+            --champagne-silver: #f8fafc; 
+            --muted-teal: #5eead4; 
+            --card-glass: #0c0c14;
+            --border-glow: rgba(45, 212, 191, 0.2);
+            --bright-teal: #5eead4;
+            --text-readable: #cbd5e1;
+            --brand-accent: #fde047;
+            --intro-gold: #fff2b2;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--champagne-silver);
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .galaxy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(45, 212, 191, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 40%),
+                linear-gradient(180deg, #050508 0%, #0a0a14 100%);
+        }
+
+        h1, h2, h3, .price-value {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.1em;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 0 24px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            margin-top: 2.5rem; 
+            margin-bottom: 2rem;
+        }
+
+        .main-brand-title {
+            font-size: clamp(1.1rem, 5vw, 1.45rem); 
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            width: 100%;
+            text-align: center;
+            color: var(--bright-teal);
+            text-shadow: 0 0 15px rgba(94, 234, 212, 0.4);
+            white-space: nowrap;
+        }
+
+        .catalog-sub-title {
+            font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--text-readable);
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0; 
+            opacity: 0.4;
+            width: 100%;
+        }
+
+        .section-divider::before, .section-divider::after {
+            content: '';
+            height: 1px;
+            width: 60px;
+            background: linear-gradient(to right, transparent, var(--accent-teal), transparent);
+        }
+
+        .section-divider .star-sparkle {
+            margin: 0 15px;
+            color: var(--accent-teal);
+            font-size: 0.8rem;
+        }
+
+        .service-card {
+            background: var(--card-glass);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--brand-accent), #eab308);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 100px;
+            letter-spacing: 0.15em;
+            box-shadow: 0 4px 15px rgba(253, 224, 71, 0.4);
+            z-index: 10;
+        }
+
+        .card-basic { border-left: 2px solid var(--accent-teal); }
+        .card-forecast { border-left: 2px solid var(--accent-violet); }
+        .card-special { border-left: 2px solid var(--accent-indigo); }
+        .card-premium { 
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            background: #0f0f1a;
+        }
+
+        .duration-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            background: rgba(45, 212, 191, 0.1);
+            padding: 4px 12px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .service-title {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+
+        .target-audience {
+            font-size: 0.85rem;
+            color: var(--muted-teal);
+            margin-bottom: 20px;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .service-desc {
+            color: var(--text-readable);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            font-weight: 300;
+        }
+
+        .price-container {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .price-value {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem; 
+            text-shadow: 0 0 10px rgba(45, 212, 191, 0.3);
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border-radius: 16px;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: linear-gradient(to right, var(--accent-teal), var(--accent-indigo));
+            color: #ffffff;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 99999;
+            pointer-events: auto !important;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .category-label {
+            font-size: 1.15rem; 
+            color: var(--accent-teal);
+            text-transform: uppercase;
+            letter-spacing: 0.45em;
+            margin: 25px 0 25px 0; 
+            display: flex;
+            align-items: center;
+            text-align: center;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .category-label::before, .category-label::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-teal), transparent);
+            margin: 0 20px;
+            opacity: 0.2;
+        }
+
+        ul { list-style: none; padding: 0; }
+        li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 8px;
+        }
+        li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+            font-size: 1.1rem;
+            top: -2px;
+        }
+
+        footer {
+            width: 100%;
+            height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="galaxy-bg"></div>
+
+    <div class="page-container">
+        <header class="header-container">
+            <h1 class="main-brand-title">BURAK SEVİNER ASTROLOJİ</h1>
+            <div class="catalog-sub-title">DANIŞMANLIK KATALOĞU</div>
+            
+            <div class="w-16 h-[1px] bg-teal-500/30 mx-auto mb-6"></div>
+            
+            <p style="color: var(--intro-gold); font-style: italic !important;" class="text-[0.92rem] font-light leading-relaxed max-w-[320px] mx-auto italic">
+                Binlerce yıllık kadim astroloji bilgisinin rehberliğinde, hayatınızın dönemeçlerini birlikte aydınlatmak üzere buradayız. Bu çalışma; yalnızca anı anlamakla kalmayıp, geleceğe daha bilinçli ve stratejik bir perspektifle bakmanızı sağlayacak bir farkındalık yolculuğudur. Size en uygun danışmanlık türünü seçerek ilk adımı atabilirsiniz.
+            </p>
+        </header>
+
+        <div class="section-divider">
+            <span class="star-sparkle">✦</span>
+        </div>
+
+        <!-- KATEGORİ: DOĞUM HARİTASI ANALİZİ -->
+        <h2 class="category-label">Doğum Haritası</h2>
+        
+        <div class="service-card card-basic">
+            <div class="popular-badge">POPÜLER</div>
+            <div class="flex justify-start">
+                <span class="duration-tag">⏱ 60 Dakika</span>
+            </div>
+            <h3 class="service-title">Doğum Haritası Analizi</h3>
+            <p class="target-audience">Kişiliğinin gizli katmanlarını, potansiyellerini, yaşam amaçlarını ve kadersel rotasını bütünsel olarak keşfetmek isteyenler için.</p>
+            <div class="service-desc">
+                <ul>
+                    <li>Kişilik analizi ve doğal yeteneklerin tespiti</li>
+                    <li>Hayat motivasyonları ve ruhsal yönelimlerin incelenmesi</li>
+                    <li>12 ev döngüsü kapsamında hayat alanlarındaki potansiyel ve tehditlerin tespiti</li>
+                    <li>Kariyer potansiyellerinin analizi</li>
+                    <li>Finansal kapasite, mevki ve toplumsal statü göstergelerinin analizi</li>
+                    <li>İlişki dinamikleri, evlilik vaatleri ve kadersel partner göstergelerinin derinlemesine değerlendirilmesi</li>
+                    <li>Kuzey Ay Düğümü ekseninde ruhsal tekamül rotasının belirlenmesi</li>
+                    <li>Asterioidler ve sabit yıldızlar rehberliğinde gizli yeteneklerin keşfi</li>
+                </ul>
+            </div>
+            <div class="price-container">
+                <span class="price-value">4.500 TL</span>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwEVVlcpVIAts7MMwJSWQp_L-VM10vk-18QqU5pKu-lhn98A/viewform?usp=sharing" target="_blank" onclick="window.open(this.href, '_blank'); return false;" class="cta-button">BAŞVURU YAP</a>
+        </div>
+
+        <div class="section-divider">
+            <span class="star-sparkle">✦</span>
+        </div>
+
+        <!-- KATEGORİ: ÖNGÖRÜ PAKETLERİ -->
+        <h2 class="category-label">Öngörü Paketleri</h2>
+
+        <div class="service-card card-forecast">
+            <div class="flex justify-start">
+                <span class="duration-tag">⏱ 30 Dakika</span>
+            </div>
+            <h3 class="service-title">Aylık Öngörü Analizi</h3>
+            <p class="target-audience">Yakın vadedeki önceliklerini netleştirmek, önümüzdeki 1 ayın temalarını ve kritik tarihlerini öngörmek isteyenler için.</p>
+            <div class="service-desc">
+                <ul>
+                    <li>Önümüzdeki 1 ayın ana temaları ve odak noktalarının belirlenmesi</li>
+                    <li>Kritik gökyüzü olaylarının kişiye özel etkilerinin analizi</li>
+                    <li>Ayın fırsat ve risk içeren dönemlerinin tespiti</li>
+                    <li>Stratejik kararlar için zamanlama rehberliği</li>
+                    <li>Lunar Return (Ay Dönüşü), Progress Haritalar, Profeksiyon, Transitler gibi teknikleri birleştirerek kişiye özel yol haritasının belirlenmesi</li>
+                    <li>Girişim ve Başlangıç Zamanlaması: Yeni projeler, yer değişimleri veya ticari kararlar için gökyüzü desteğinin en yüksek olduğu "altın zaman dilimlerinin" tespiti</li>
+                </ul>
+            </div>
+            <div class="price-container">
+                <span class="price-value">1.900 TL</span>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwEVVlcpVIAts7MMwJSWQp_L-VM10vk-18QqU5pKu-lhn98A/viewform?usp=sharing" target="_blank" onclick="window.open(this.href, '_blank'); return false;" class="cta-button">BAŞVURU YAP</a>
+        </div>
+
+        <div class="service-card card-forecast">
+            <div class="flex justify-start">
+                <span class="duration-tag">⏱ 35 Dakika</span>
+            </div>
+            <h3 class="service-title">3 Aylık Öngörü Analizi</h3>
+            <p class="target-audience">Önümüzdeki 3 aylık dönemin ana gündem maddelerini, fırsatlarını ve kritik dönemeçlerini yönetmek isteyenler için.</p>
+            <div class="service-desc">
+                <ul>
+                    <li>Önümüzdeki 3 aylık dönemin ana temaları ve odak noktalarının belirlenmesi</li>
+                    <li>Kritik gökyüzü olaylarının kişiye özel etkilerinin analizi</li>
+                    <li>Dönemin fırsat ve risk içeren zaman aralıklarının tespiti</li>
+                    <li>Stratejik kararlar için zamanlama rehberliği</li>
+                    <li>Progress Haritalar, Profeksiyon ve Transitler gibi teknikleri birleştirerek kişiye özel yol haritasının belirlenmesi</li>
+                    <li>Girişim ve Başlangıç Zamanlaması: Yeni projeler, yer değişimleri veya ticari kararlar için gökyüzü desteğinin en yüksek olduğu zaman dilimlerinin tespiti</li>
+                </ul>
+            </div>
+            <div class="price-container">
+                <span class="price-value">2.400 TL</span>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwEVVlcpVIAts7MMwJSWQp_L-VM10vk-18QqU5pKu-lhn98A/viewform?usp=sharing" target="_blank" onclick="window.open(this.href, '_blank'); return false;" class="cta-button">BAŞVURU YAP</a>
+        </div>
+
+        <div class="service-card card-forecast">
+            <div class="flex justify-start">
+                <span class="duration-tag">⏱ 40 Dakika</span>
+            </div>
+            <h3 class="service-title">6 Aylık Öngörü Analizi</h3>
+            <p class="target-audience">6 aylık süreçteki kritik virajları gökyüzü desteğiyle stratejik olarak yönetmek isteyenler için.</p>
+            <div class="service-desc">
+                <ul>
+                    <li>Önümüzdeki 6 ayın ana temaları ve odak noktalarının belirlenmesi</li>
+                    <li>Kritik gökyüzü olaylarının kişiye özel etkilerinin analizi</li>
+                    <li>Ayın fırsat ve risk içeren dönemlerinin tespiti</li>
+                    <li>Stratejik kararlar için zamanlama rehberliği</li>
+                    <li>Lunar Return (Ay Dönüşü), Progress Haritalar, Profeksiyon, Transitler gibi teknikleri birleştirerek kişiye özel yol haritasının belirlenmesi</li>
+                    <li>Girişim ve Başlangıç Zamanlaması: Yeni projeler, yer değişimleri veya ticari kararlar için gökyüzü desteğinin en yüksek olduğu "altın zaman dilimlerinin" tespiti</li>
+                </ul>
+            </div>
+            <div class="price-container">
+                <span class="price-value">2.900 TL</span>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwEVVlcpVIAts7MMwJSWQp_L-VM10vk-18QqU5pKu-lhn98A/viewform?usp=sharing" target="_blank" onclick="window.open(this.href, '_blank'); return false;" class="cta-button">BAŞVURU YAP</a>
+        </div>
+
+        <div class="service-card card-forecast">
+            <div class="popular-badge">POPÜLER</div>
+            <div class="flex justify-start">
+                <span class="duration-tag">⏱ 50 Dakika</span>
+            </div>
+            <h3 class="service-title">Yıllık Öngörü Analizi</h3>
+            <p class="target-audience">Önümüzdeki 12 ayın ana gündem maddelerini, fırsatlarını, risklerini ve kritik dönemeçlerini profesyonel bir stratejiyle planlamak isteyenler için.</p>
+            <div class="service-desc">
+                <ul>
+                    <li>Önümüzdeki 12 ayın ana temaları ve odak noktalarının belirlenmesi</li>
+                    <li>Kritik gökyüzü olaylarının kişiye özel etkilerinin analizi</li>
+                    <li>Yılın fırsat ve risk içeren dönemlerinin tespiti</li>
+                    <li>Stratejik kararlar için zamanlama rehberliği</li>
+                    <li>Solar Return, Progress Haritalar, Profeksiyon, Transitler gibi teknikleri birleştirerek kişiye özel yol haritasının belirlenmesi</li>
+                    <li>Girişim ve Başlangıç Zamanlaması: Yeni projeler, yer değişimleri veya ticari kararlar için gökyüzü desteğinin en yüksek olduğu "altın zaman dilimlerinin" tespiti</li>
+                    <li>Kadersel Döngülerin Analizi: Yaklaşan Ay Düğümü geçişleri, kişisel gezegen döngüleri ve tutulma serilerinin hayatın hangi büyük evresini başlattığının veya kapattığının tespiti</li>
+                </ul>
+            </div>
+            <div class="price-container">
+                <span class="price-value">3.900 TL</span>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwEVVlcpVIAts7MMwJSWQp_L-VM10vk-18QqU5pKu-lhn98A/viewform?usp=sharing" target="_blank" onclick="window.open(this.href, '_blank'); return false;" class="cta-button">BAŞVURU YAP</a>
+        </div>
+
+        <div class="section-divider">
+            <span class="star-sparkle">✦</span>
+        </div>
+
+        <!-- KATEGORİ: AVANTAJLI PAKETLER -->
+        <h2 class="category-label">Avantajlı Paketler</h2>
+
+        <div class="service-card card-premium">
+            <div class="popular-badge">POPÜLER</div>
+            <div class="flex justify-start">
+                <span class="duration-tag">⏱ 90 Dakika</span>
+            </div>
+            <h3 class="service-title">Doğum Haritası Analizi + Yıllık Öngörü</h3>
+            <p class="target-audience">Hem bireysel potansiyelini derinlemesine anlamak hem de önündeki 1 yılın yol haritasını bütünsel bir stratejiyle çizmek isteyenler için.</p>
+            <div class="service-desc">
+                Doğum Haritası Analizi ve Yıllık Öngörü Analizi hizmetlerini içeren, farkındalık ve planlama odaklı avantajlı paket.
+            </div>
+            <div class="price-container">
+                <span class="price-value">6.900 TL</span>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwEVVlcpVIAts7MMwJSWQp_L-VM10vk-18QqU5pKu-lhn98A/viewform?usp=sharing" target="_blank" onclick="window.open(this.href, '_blank'); return false;" class="cta-button">BAŞVURU YAP</a>
+        </div>
+
+        <div class="section-divider">
+            <span class="star-sparkle">✦</span>
+        </div>
+
+        <!-- KATEGORİ: UZMANLIK ANALİZLERİ -->
+        <h2 class="category-label">Uzmanlık Analizleri</h2>
+
+        <div class="service-card card-special">
+            <div class="flex justify-start">
+                <span class="duration-tag">⏱ 45 Dakika</span>
+            </div>
+            <h3 class="service-title">Kariyer Analizi</h3>
+            <p class="target-audience">Mesleki rotasını netleştirmek, iş değişikliği veya girişim süreçlerini en doğru zamanlamayla yönetmek isteyenler için.</p>
+            <div class="service-desc">
+                <ul>
+                    <li>Doğal yeteneklerle en uyumlu meslek grupları</li>
+                    <li>Kariyerde parlama ve statü artışı dönemleri</li>
+                    <li>İş değişikliği veya kendi işini kurma zamanlaması</li>
+                    <li>Mevcut tıkanıklıkların analizi ve çözüm yolları</li>
+                </ul>
+            </div>
+            <div class="price-container">
+                <span class="price-value">4.500 TL</span>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwEVVlcpVIAts7MMwJSWQp_L-VM10vk-18QqU5pKu-lhn98A/viewform?usp=sharing" target="_blank" onclick="window.open(this.href, '_blank'); return false;" class="cta-button">BAŞVURU YAP</a>
+        </div>
+
+        <div class="service-card card-special">
+            <div class="flex justify-start">
+                <span class="duration-tag">⏱ 45 Dakika</span>
+            </div>
+            <h3 class="service-title">Sinastri (İlişki) Analizi</h3>
+            <p class="target-audience">İki kişinin ilişkisindeki derin dinamikleri, uyum alanlarını ve kadersel bağları tarafsız bir gözle anlamak isteyenler için.</p>
+            <div class="service-desc">
+                <ul>
+                    <li>İki harita arasındaki çekim, uyum ve çatışma noktaları</li>
+                    <li>İlişkinin kadersel vaatleri ve ortak gelecek potansiyeli</li>
+                    <li>İletişim dili ve tarafların birbirini dönüştürme şekli</li>
+                    <li>Mevcut ilişkideki krizlerin astrolojik çözüm önerileri</li>
+                </ul>
+            </div>
+            <div class="price-container">
+                <span class="price-value">4.500 TL</span>
+            </div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwEVVlcpVIAts7MMwJSWQp_L-VM10vk-18QqU5pKu-lhn98A/viewform?usp=sharing" target="_blank" onclick="window.open(this.href, '_blank'); return false;" class="cta-button">BAŞVURU YAP</a>
+        </div>
+
+        <footer></footer>
+    </div>
+</body>
+</html>
